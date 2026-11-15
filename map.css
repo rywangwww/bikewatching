@@ -1,0 +1,71 @@
+html,
+body {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
+#map {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  min-height: 60vh;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+
+  svg {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  circle {
+    fill: var(--color);
+    fill-opacity: 0.6;
+    stroke: white;
+    stroke-width: 1;
+    pointer-events: auto;
+  }
+}
+
+/* Shared by the map circles and the legend swatches */
+#map circle,
+.legend > div {
+  --color-departures: steelblue;
+  --color-arrivals: darkorange;
+  --color: color-mix(
+    in oklch,
+    var(--color-departures) calc(100% * var(--departure-ratio)),
+    var(--color-arrivals)
+  );
+}
+
+/* Design 2: separate swatches & labels */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5em 2em;
+  margin-block: 1em;
+
+  .legend-title {
+    color: #777;
+  }
+
+  > div {
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+
+    &::before {
+      content: '';
+      width: 1em;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: var(--color);
+    }
+  }
+}
